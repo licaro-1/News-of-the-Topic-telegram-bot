@@ -14,7 +14,8 @@
 ## Установка и запуск
 - Склонировать репозиторий
   ```
-  git clone ....
+  git clone https://github.com/licaro-1/telegram_bot.git
+  cd telegram_bot/
   ```
 - Создать и активировать виртуальное окружение, загрузить зависимости
   ```
@@ -57,7 +58,7 @@
 - <b id="список_категорий">Виджет со списком всех категорий</b>
 
   <div>
-      <img src="https://telegra.ph/file/579de8b47375a41774bed.png" lt="bot" width="450" height="450"/>
+      <img src="https://telegra.ph/file/98fc8baec8eb249136e6f.png" lt="bot" width="450" height="250"/>
   </div>
 #
 - <b id="категории_по_фразе">Виджет новостей по категориям через фразу</b>
