@@ -1,0 +1,31 @@
+version: '3.8'
+
+
+services:
+  app:
+    container_name: tg_bot
+    build: ./
+    depends_on:
+      - db
+    volumes:
+      - app:./app
+    restart: always
+    env_file:
+      - ./app/.env
+
+  db:
+    image: postgres:13.0-alpine
+    environment:
+      - POSTGRES_DB=${DB_HOST}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    ports:
+      - ${DB_PORT}:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env
+volumes:
+  app:
+  postgres_data:
+
