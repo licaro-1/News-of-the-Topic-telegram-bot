@@ -7,7 +7,7 @@ def to_prettier_all_news(title:str, description:str, url:str) -> str:
 def to_prettier_top_headlines(title:str, url:str) -> str:
     """Format top-headlines news to prettier view."""
     return (
-        f"<u><i>Топ новостей за последнюю неделю:</i></u>"
+        f"<u><i>Топ новостей за последний месяц:</i></u>"
         f"\n\n<a href='{url}'><b>{title}</b></a>"
         )
 

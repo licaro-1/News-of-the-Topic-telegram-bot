@@ -131,6 +131,7 @@ async def news_navigation_button_handler(
         caption = to_prettier_all_news(title, description, post_url)
     elif callback_type == "top_headlines":
         caption = to_prettier_top_headlines(title, post_url)
+        image = InputMediaPhoto(IMG_BY_CATEGORY["top_headlines"])
     elif callback_type == "categories":
         caption = to_prettier_news_by_category(topic, title, post_url)
         image = InputMediaPhoto(IMG_BY_CATEGORY[topic])
@@ -201,14 +202,14 @@ async def send_top_headlines(
     if not news:
         return await no_news_on_the_topic(chat_id, context)
     news = post_formatter(news[0])
-    title, post_url, image, page_count = (
+    title, post_url, page_count = (
         news.get("title"), 
         news.get("post_url"),
-        news.get("image_url"),
         news.get("page_count")
     )
     caption = to_prettier_top_headlines(
             title, post_url)
+    image = IMG_BY_CATEGORY["top_headlines"]
     reply_keyboard = widget_buttons_navigate_logic(
         page_count, 
         page,
@@ -287,4 +288,4 @@ async def send_news_by_category(
             parse_mode="html",
             photo=image,
             reply_markup=InlineKeyboardMarkup(reply_keyboard),
-        )
+    )

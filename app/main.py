@@ -1,6 +1,5 @@
 import sys
 import logging
-import asyncio
 
 from telegram import Update
 from telegram.ext import (
@@ -45,13 +44,17 @@ def main():
     if not const_checker:
         sys.exit("Requierd environment variables not found")
     application = ApplicationBuilder().token(BOT_TOKEN).build()
-    all_messages_handler = MessageHandler(filters.TEXT & (~filters.COMMAND), send_news)
+    all_messages_handler = MessageHandler(
+        filters.TEXT & (~filters.COMMAND),
+        send_news
+        )
     top_headlines_handler = MessageHandler(
             filters.Regex("^Топ новостей$"),
             send_top_headlines
             )
     news_by_category_handler = MessageHandler(
-            filters.Regex("^Новости (спорта|медицины|технологий|науки|развлечений|бизнеса)$"),
+            filters.Regex("^Новости (спорта|медицины|технологий"
+                          "|науки|развлечений|бизнеса)$"),
             send_news_by_category
             )
     categories_list = MessageHandler(

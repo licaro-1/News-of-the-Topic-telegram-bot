@@ -51,6 +51,7 @@ IMG_BY_CATEGORY = {
         "entertainment": "https://telegra.ph/file/d89e7c8b8e79ef9712e88.jpg",
         "sports": "https://telegra.ph/file/3a69c569a225fa6235900.jpg",
         "technology": "https://telegra.ph/file/afa1582831313c107d5f9.jpg",
+        "top_headlines": "https://telegra.ph/file/7d84ec74db26645374c7b.jpg",
     }
 
 TEMPLATE_MESSAGES = {
