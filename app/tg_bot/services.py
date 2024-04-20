@@ -119,6 +119,7 @@ async def news_navigation_button_handler(
         response = CALLBACK_TYPE_TO_FUNC[callback_type](topic, page)
     else:
         response = CALLBACK_TYPE_TO_FUNC[callback_type](page) 
+    total_pages = response["totalResults"]
     news = post_formatter(response.get("articles")[0])
     title, description, post_url, image = (
         news.get("title"),
@@ -135,7 +136,6 @@ async def news_navigation_button_handler(
     elif callback_type == "categories":
         caption = to_prettier_news_by_category(topic, title, post_url)
         image = InputMediaPhoto(IMG_BY_CATEGORY[topic])
-    total_pages = response.get("totalResults")
     reply_keyboard = widget_buttons_navigate_logic(
             total_pages, 
             page, 
@@ -158,15 +158,15 @@ async def send_news(
     topic = update.message.text
     chat_id = update.effective_chat.id
     news_response = get_news_by_topic(topic, page)
+    page_count = news_response["totalResults"]
     news =  news_response.get("articles")
     if not news:
         return await no_news_on_the_topic(chat_id, context)
     news = post_formatter(news[0])
-    title, post_url, description, page_count, image = (
+    title, post_url, description, image = (
         news.get("title"), 
         news.get("post_url"),
         news.get("description"), 
-        news.get("page_count"),
         news.get("image_url"),
     )
     caption = to_prettier_all_news(

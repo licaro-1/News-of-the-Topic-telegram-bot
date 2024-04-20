@@ -20,10 +20,12 @@ def to_prettier_news_by_category(category:str, title:str, url:str) -> str:
 
 def post_formatter(news:dict) -> dict:
     """Get json dict of response API ang change img to default if doesnt exists."""
+    print(news)
     news_with_tags = {
     "title": news.get('title'),
     "image_url": news.get("urlToImage"),
     "description": news.get("description"),
+    "page_count": news.get("totalResults"),
     "post_url": news.get('url'),
     }
     if not news_with_tags["image_url"]:

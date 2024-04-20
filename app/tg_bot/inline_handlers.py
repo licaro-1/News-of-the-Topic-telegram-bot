@@ -50,7 +50,8 @@ async def send_news_on_the_topic_inline(
             description=description[:200],
             parse_mode="html",
         ))
-    results.append(InlineQueryResultArticle(
+    results.append(
+        InlineQueryResultArticle(
             id=str(uuid4()),
             thumbnail_url=BOT_AVATAR_URL,
             title="News of the Topic",

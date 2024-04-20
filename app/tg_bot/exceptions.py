@@ -6,7 +6,7 @@ class BaseException(Exception):
     def __repr__(self):
         if self.message:
             return f"{self.__class__.__name__}: {self.message}"
-        return "{self.__class__.__name__}"
+        return f"{self.__class__.__name__}"
 
 #====== API Exceptions ======
 

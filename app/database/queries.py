@@ -1,5 +1,5 @@
 import logging
-from sqlalchemy import select, insert
+from sqlalchemy import select
 
 from database.models import Users, Base
 from database.config import db_session, engine
@@ -14,7 +14,7 @@ async def create_tables():
         await conn.run_sync(Base.metadata.create_all)
 
 async def select_user(tg_id: int):
-    """Select user in database by tg_id"""
+    """Select user in database by tg_id."""
     async with db_session() as session:
         query = select(Users).filter_by(tg_id=tg_id)
         result = await session.execute(query)
@@ -30,8 +30,9 @@ async def create_user(username: str, tg_id: int):
             session.add(user)
             await session.commit()
     except Exception as error:
-        error_message = "Got an error when try to add user to database"
-        log.warning(error_message)
+        error_message = (f"Got an error when try to "
+                         f"add user to database: {error}")
+        log.warning(error_message, exc_info=True)
         raise exceptions.CreateUserError(error_message)
     log.info(f"User add succesfull")
     return user
@@ -47,8 +48,9 @@ async def update_messages_count(tg_id: int):
             user.messages_count += 1
             await session.commit()
     except Exception as error:
-        error_message = "Got error when try to update messages_count by tg_id"
-        log.warning(error_message)
+        error_message = (f"Got error when try to update "
+                         f"messages_count by tg_id: {error}")
+        log.warning(error_message, exc_info=True)
         raise exceptions.UpdateMessagesCountError(error_message)
     return user
 
@@ -63,7 +65,8 @@ async def update_nav_moves_count(tg_id: int):
             user.nav_moves_count += 1
             await session.commit()
     except Exception as error:
-        error_message = "Got error when try to update nav_moves_count by tg_id"
-        log.warning(error_message)
+        error_message = (f"Got error when try to update "
+                         f"nav_moves_count by tg_id: {error}")
+        log.warning(error_message, exc_info=True)
         raise exceptions.UpdateNavMovesCountError(error_message)
     return user

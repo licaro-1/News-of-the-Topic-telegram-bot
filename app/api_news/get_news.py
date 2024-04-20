@@ -33,7 +33,6 @@ def log_and_request(url: str, headers:dict):
             )
     return response
 
-
 def get_news_by_topic(
     topic: str,
     page: int = 1,
@@ -49,7 +48,7 @@ def get_news_by_topic(
         "from": LAST_MONTH_DATE,
         "language": lang,
         "page": page,
-        }
+    }
     response = log_and_request(API_EVERYTHING_URL, headers)
     
     return response

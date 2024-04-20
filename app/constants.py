@@ -32,7 +32,7 @@ NEWS_CATEGORIES = {
     "technology": "Технологии",
     "entertainment": "Развлечения",
     "health": "Медицина",
-    }
+}
 
 MESSAGE_TO_NEWS_CATEGORY = {
     "новости бизнеса": "business",
@@ -41,7 +41,7 @@ MESSAGE_TO_NEWS_CATEGORY = {
     "новости технологий": "technology",
     "новости развлечений": "entertainment",
     "новости медицины": "health",
-    }
+}
 
 
 IMG_BY_CATEGORY = {
@@ -52,7 +52,7 @@ IMG_BY_CATEGORY = {
         "sports": "https://telegra.ph/file/3a69c569a225fa6235900.jpg",
         "technology": "https://telegra.ph/file/afa1582831313c107d5f9.jpg",
         "top_headlines": "https://telegra.ph/file/7d84ec74db26645374c7b.jpg",
-    }
+}
 
 TEMPLATE_MESSAGES = {
     "start":("Привет! Я новостной бот.\nНапиши тему и я найду новости по ней"

@@ -49,18 +49,18 @@ def main():
         send_news
         )
     top_headlines_handler = MessageHandler(
-            filters.Regex("^Топ новостей$"),
-            send_top_headlines
-            )
+        filters.Regex("^Топ новостей$"),
+        send_top_headlines
+        )
     news_by_category_handler = MessageHandler(
-            filters.Regex("^Новости (спорта|медицины|технологий"
+        filters.Regex("^Новости (спорта|медицины|технологий"
                           "|науки|развлечений|бизнеса)$"),
-            send_news_by_category
-            )
+        send_news_by_category
+        )
     categories_list = MessageHandler(
-            filters.Regex("^Новости на тему$"),
-            send_list_of_all_categories_widget
-            )
+        filters.Regex("^Новости на тему$"),
+        send_list_of_all_categories_widget
+        )
     start_handler = CommandHandler('start', start)
     help_handler = CommandHandler('help', help)
     application.add_handler(start_handler)

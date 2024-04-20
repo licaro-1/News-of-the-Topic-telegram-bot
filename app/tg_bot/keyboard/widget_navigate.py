@@ -7,6 +7,7 @@ def widget_buttons_navigate_logic(
         topic:str
         )-> list:
     """Return list buttons depending on user is on page."""
+    print(page_count, page)
     if page == 1 and page != page_count:
         reply_keyboard = [
             [InlineKeyboardButton(

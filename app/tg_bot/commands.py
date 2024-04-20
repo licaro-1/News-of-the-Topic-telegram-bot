@@ -19,8 +19,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def help(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """/help command handler."""
     await context.bot.send_message(
-            chat_id = update.effective_chat.id,
-            text = TEMPLATE_MESSAGES.get("help"),
-            parse_mode="html")
+        chat_id = update.effective_chat.id,
+        text = TEMPLATE_MESSAGES.get("help"),
+        parse_mode="html")
 
 
