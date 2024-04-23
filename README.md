@@ -25,14 +25,14 @@
   ```
 - Запустить сервер
   ```
-  cd app/
-  python main.py
+  docker-compose up
   ```
 
 ## Используемые технологии
 - Python;
 - python-telegram-bot;
 - async SQL-Alchemy (PostgreSQL);
+- Docker, docker-compose;
 
 
 ## Примеры виджетов
