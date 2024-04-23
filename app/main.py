@@ -1,7 +1,7 @@
 import sys
 import logging
+import asyncio
 
-from telegram import Update
 from telegram.ext import (
     filters, 
     ApplicationBuilder, 
@@ -25,14 +25,14 @@ from tg_bot.inline_handlers import send_news_on_the_topic_inline
 
 log = logging.getLogger(__name__)
 logging.basicConfig(
-        level=logging.INFO,
-        filename=f"./logs/{__name__}.log",
-        filemode="w",
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    )
+    level=logging.INFO,
+    filename=f"./logs/{__name__}.log",
+    filemode="w",
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+)
 
-def check_constants():
-    """Checking the env constants."""
+def check_constants() -> bool:
+    """Checking the bot env constants."""
     if BOT_TOKEN and API_KEY:
         return True
     log.critical("Required env variables not found")
@@ -75,4 +75,7 @@ def main():
 
 
 if __name__ == '__main__':
+   loop = asyncio.get_event_loop()
+   loop.run_until_complete(create_tables())
+   log.info("Database create succesfull")
    main()

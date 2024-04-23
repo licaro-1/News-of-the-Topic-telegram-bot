@@ -1,7 +1,6 @@
 import logging
 from telegram import (
     Update, 
-    InlineKeyboardButton, 
     InlineKeyboardMarkup, 
     InputMediaPhoto,
     )
@@ -29,7 +28,10 @@ from database.queries import (
     update_messages_count, 
     update_nav_moves_count
 )
-from tg_bot.keyboard.widget_navigate import widget_buttons_navigate_logic
+from tg_bot.keyboard.widget_navigate import (
+    widget_buttons_navigate_logic,
+    list_of_all_categories,
+)
 import tg_bot.exceptions as exceptions
 
 
@@ -44,7 +46,7 @@ CALLBACK_TYPE_TO_FUNC = {
 async def no_news_on_the_topic(
         chat_id:int, 
         context: ContextTypes.DEFAULT_TYPE
-        ):
+        ) -> None:
     try:
         await context.bot.send_message(
                 chat_id=chat_id,
@@ -69,17 +71,18 @@ async def send_news_to_user(
         log.error(log_message, exc_info=True)
         raise exceptions.SendMessageError(error)
 
-async def change_media_message(query, image, **kwargs):
+async def change_media_message(query, image, **kwargs) -> None:
     """Change message by bot when user got swap in widget."""
     try:
+        log.info(f"Start send message, query:{query}")
         await query.edit_message_media(image)
         await query.edit_message_caption(**kwargs)
         log.info("Message change succesfull")
     except Exception as error:
-        log.warning("Erorr accepting message change")
+        log.warning(f"Erorr accepting message change, {error}")
         raise exceptions.ChangeMediaMessageError(error)
 
-async def delete_news_widget(query):
+async def delete_news_widget(query) -> None:
     """Delete news widget."""
     await query.delete_message()
 
@@ -107,8 +110,9 @@ async def callback_handler(
         return await send_news_by_category(update, context, category)
 
 async def news_navigation_button_handler(
-        callback_type: str,
-        query) -> None:
+        callback_type: str, 
+        query
+        ) -> None:
     _, step, topic, page = query.data.split(',')
     page = int(page)
     if step == "Next":
@@ -143,11 +147,11 @@ async def news_navigation_button_handler(
             topic
         )
     await change_media_message(
-            query=query,
-            image=image,
-            caption=caption, 
-            parse_mode="html", 
-            reply_markup=InlineKeyboardMarkup(reply_keyboard))
+        query=query,
+        image=image,
+        caption=caption, 
+        parse_mode="html", 
+        reply_markup=InlineKeyboardMarkup(reply_keyboard))
 
 async def send_news(
         update: Update, 
@@ -194,7 +198,8 @@ async def send_news(
 async def send_top_headlines(
         update: Update, 
         context: ContextTypes.DEFAULT_TYPE, 
-        page: int = 1):
+        page: int = 1
+        ) -> None:
     """Get news in the top headlines and send to user."""
     chat_id = update.effective_chat.id
     news_response = get_top_headlines(page)
@@ -230,16 +235,9 @@ async def send_top_headlines(
 async def send_list_of_all_categories_widget(
         update: Update, 
         context: ContextTypes.DEFAULT_TYPE
-        ):
+        ) -> None:
     """Send widget with all categories."""
-    reply_keyboard = []
-    for category, name in NEWS_CATEGORIES.items():
-        reply_keyboard.append(
-            [InlineKeyboardButton(
-                name, 
-                callback_data=f"categories_widget,{category}"
-                )]
-        )
+    reply_keyboard = list_of_all_categories()
     telegram_id = update.message.from_user.id
     await update_messages_count(telegram_id)
     await context.bot.send_message(
@@ -252,7 +250,8 @@ async def send_news_by_category(
         update:Update,
         context: ContextTypes.DEFAULT_TYPE,
         category: str = None,
-        page: int = 1):
+        page: int = 1
+        ) -> None:
     """Send news by category."""
     chat_id = update.effective_chat.id
     if not category and update.message.text:

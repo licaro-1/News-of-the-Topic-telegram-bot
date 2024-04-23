@@ -1,6 +1,9 @@
-from sqlalchemy.orm import (DeclarativeBase, 
-                            Mapped, 
-                            mapped_column)
+from sqlalchemy import BigInteger
+from sqlalchemy.orm import (
+    DeclarativeBase, 
+    Mapped, 
+    mapped_column,
+)
 
 
 class Base(DeclarativeBase):
@@ -22,6 +25,6 @@ class Users(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     username: Mapped[str] = mapped_column(default="nousername")
-    tg_id: Mapped[int]
+    tg_id: Mapped[int] = mapped_column(BigInteger)
     messages_count: Mapped[int] = mapped_column(default=0)
     nav_moves_count: Mapped[int] = mapped_column(default=0)

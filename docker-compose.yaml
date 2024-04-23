@@ -3,20 +3,22 @@ version: '3.8'
 
 services:
   app:
-    container_name: tg_bot
+    container_name: bot
+    tty: true
     build: ./
     depends_on:
       - db
     volumes:
-      - app:./app
+      - ./logs:/app/logs
     restart: always
     env_file:
-      - ./app/.env
+      - .env
 
   db:
+    container_name: db
     image: postgres:13.0-alpine
     environment:
-      - POSTGRES_DB=${DB_HOST}
+      - POSTGRES_DB=${DB_NAME}
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
     ports:
@@ -24,7 +26,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
-      - ./.env
+      - .env
 volumes:
   app:
   postgres_data:

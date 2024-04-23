@@ -2,12 +2,12 @@ import logging
 import requests
 
 from constants import (
-        API_KEY, 
-        API_EVERYTHING_URL, 
-        API_TOP_HEADLINES,
-        NEWS_PAGE_SIZE,
-        LAST_MONTH_DATE
-    )
+    API_KEY, 
+    API_EVERYTHING_URL, 
+    API_TOP_HEADLINES,
+    NEWS_PAGE_SIZE,
+    LAST_MONTH_DATE
+)
 import tg_bot.exceptions as exceptions
 
 
@@ -25,7 +25,7 @@ def log_and_request(url: str, headers:dict):
         response = response.json()
     except Exception as error:
         raise exceptions.DeserializationError(
-            "Ошибка при десериализации запроса {response}: {error}"
+            f"Ошибка при десериализации запроса {response}: {error}"
         )
     if response["status"] != "ok":
         raise exceptions.ConnectionToEndpointError(
@@ -40,7 +40,7 @@ def get_news_by_topic(
     lang: str = "ru") -> dict:
     """Get news by topic."""
     headers = {
-        "apiKey": API_KEY, 
+        "apiKey": API_KEY,
         "q": topic,
         "searchIm": "title",
         "pageSize": page_size,
@@ -49,8 +49,7 @@ def get_news_by_topic(
         "language": lang,
         "page": page,
     }
-    response = log_and_request(API_EVERYTHING_URL, headers)
-    
+    response = log_and_request(API_EVERYTHING_URL, headers) 
     return response
 
 def get_top_headlines(page:int=1, lang:str="ru") -> dict:

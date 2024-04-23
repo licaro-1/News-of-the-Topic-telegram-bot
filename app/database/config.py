@@ -5,17 +5,16 @@ from constants import (
     DB_PASSWORD,
     DB_PORT,
     DB_USER,
+    DB_NAME,
 )
 
 
-def DATABASE_URL_asyncpg(self):
+def DATABASE_URL_asyncpg():
     # postgresql+asyncpg://postgres:postgres@localhost:5432/sa
-    return (f"postgresql+asyncpg://{DB_USER}:"
-            f"{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/postgres")
+    return f"postgresql+asyncpg://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
 engine = create_async_engine(
-    url="sqlite+aiosqlite:///test.db",
-    echo=True
+    url=DATABASE_URL_asyncpg()
 )
 
 db_session = async_sessionmaker(engine)
