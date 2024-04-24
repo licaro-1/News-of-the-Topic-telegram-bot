@@ -32,6 +32,7 @@
 - Python;
 - python-telegram-bot;
 - async SQL-Alchemy (PostgreSQL);
+- alembic;
 - Docker, docker-compose;
 
 
