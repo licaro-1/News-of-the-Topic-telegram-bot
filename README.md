@@ -66,5 +66,3 @@
   <div>
       <img src="https://telegra.ph/file/3e8a2202d05cdbdc43934.png" lt="bot" width="450" height="450"/>
   </div>
-
-## Для связи
